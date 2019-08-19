@@ -1,0 +1,19 @@
+{
+  "name": "get-roots",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc"
+  },
+  "author": "Vsevolod Rodionov <vsevolod.rodionov@gmail.com>",
+  "license": "ISC",
+  "dependencies": {
+    "fs-extra": "~8.1.0"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "~8.0.0",
+    "@types/node": "~12.7.2",
+    "typescript": "~3.5.3"
+  }
+}
