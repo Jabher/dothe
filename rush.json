@@ -287,13 +287,13 @@
   "projects": [
     {
       "packageName": "get-roots",
-      "versionPolicyName": "dothe",
+      "versionPolicyName": "individual",
       "shouldPublish": true,
       "projectFolder": "libraries/get-roots"
     },
     {
       "packageName": "dothe",
-      "versionPolicyName": "individual",
+      "versionPolicyName": "dothe",
       "shouldPublish": true,
       "projectFolder": "libraries/dothe"
     }
