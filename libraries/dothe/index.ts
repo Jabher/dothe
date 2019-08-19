@@ -3,8 +3,9 @@ import {stringifyTemplate} from "./lib/stringifyTemplate";
 import {Task} from "./lib/Task";
 
 
-export function task(strings: TemplateStringsArray, ...substitutions: string[]): Task {
+function task(strings: TemplateStringsArray, ...substitutions: string[]): Task {
     return registry.registerTask(stringifyTemplate(strings, ...substitutions));
 }
 
-export default task;
+task.task = task;
+module.exports = task;
