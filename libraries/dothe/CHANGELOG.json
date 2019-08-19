@@ -2,6 +2,18 @@
   "name": "dothe",
   "entries": [
     {
+      "version": "1.0.10",
+      "tag": "dothe_v1.0.10",
+      "date": "Mon, 19 Aug 2019 16:20:11 GMT",
+      "comments": {}
+    },
+    {
+      "version": "1.0.9",
+      "tag": "dothe_v1.0.9",
+      "date": "Mon, 19 Aug 2019 16:14:58 GMT",
+      "comments": {}
+    },
+    {
       "version": "1.0.8",
       "tag": "dothe_v1.0.8",
       "date": "Mon, 19 Aug 2019 16:12:44 GMT",

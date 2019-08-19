@@ -8,4 +8,5 @@ function task(strings: TemplateStringsArray, ...substitutions: string[]): Task {
 }
 
 task.task = task;
+export default task;
 module.exports = task;
