@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // specified in the rush.json configuration file (if not already installed), and then pass a command-line to it.
 // An example usage would be:
 //
-//    node common/scripts/install-describe-rush.js install
+//    node common/scripts/install-run-rush.js install
 //
 // For more information, see: https://rushjs.io/pages/maintainer/setup_new_repo/
 const path = require("path");
@@ -33,13 +33,13 @@ function getRushVersion() {
     }
 }
 function run() {
-    const [nodePath, /* Ex: /bin/node */ scriptPath, /* /repo/common/scripts/install-describe-rush.js */ ...packageBinArgs /* [build, --to, myproject] */] = process.argv;
+    const [nodePath, /* Ex: /bin/node */ scriptPath, /* /repo/common/scripts/install-run-rush.js */ ...packageBinArgs /* [build, --to, myproject] */] = process.argv;
     if (!nodePath || !scriptPath) {
         throw new Error('Unexpected exception: could not detect node path or script path');
     }
     if (process.argv.length < 3) {
-        console.log('Usage: install-describe-rush.js <command> [args...]');
-        console.log('Example: install-describe-rush.js build --to myproject');
+        console.log('Usage: install-run-rush.js <command> [args...]');
+        console.log('Example: install-run-rush.js build --to myproject');
         process.exit(1);
     }
     install_run_1.runWithErrorAndStatusCode(() => {
@@ -49,4 +49,4 @@ function run() {
     });
 }
 run();
-//# sourceMappingURL=install-describe-rush.js.map
+//# sourceMappingURL=install-run-rush.js.map

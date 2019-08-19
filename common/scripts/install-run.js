@@ -9,7 +9,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 // version of the specified tool (if not already installed), and then pass a command-line to it.
 // An example usage would be:
 //
-//    node common/scripts/install-describe.js qrcode@1.2.2 qrcode https://rushjs.io
+//    node common/scripts/install-run.js qrcode@1.2.2 qrcode https://rushjs.io
 //
 // For more information, see: https://rushjs.io/pages/maintainer/setup_new_repo/
 const childProcess = require("child_process");
@@ -335,7 +335,7 @@ function writeFlagFile(packageInstallFolder) {
 function installAndRun(packageName, packageVersion, packageBinName, packageBinArgs) {
     const rushJsonFolder = findRushJsonFolder();
     const rushCommonFolder = path.join(rushJsonFolder, 'common');
-    const packageInstallFolder = ensureAndJoinPath(rushCommonFolder, 'temp', 'install-describe', `${packageName}@${packageVersion}`);
+    const packageInstallFolder = ensureAndJoinPath(rushCommonFolder, 'temp', 'install-run', `${packageName}@${packageVersion}`);
     if (!isPackageAlreadyInstalled(packageInstallFolder)) {
         // The package isn't already installed
         cleanInstallFolder(rushCommonFolder, packageInstallFolder);
@@ -369,18 +369,18 @@ function runWithErrorAndStatusCode(fn) {
 }
 exports.runWithErrorAndStatusCode = runWithErrorAndStatusCode;
 function run() {
-    const [nodePath, /* Ex: /bin/node */ scriptPath, /* /repo/common/scripts/install-describe-rush.js */ rawPackageSpecifier, /* qrcode@^1.2.0 */ packageBinName, /* qrcode */ ...packageBinArgs /* [-f, myproject/lib] */] = process.argv;
+    const [nodePath, /* Ex: /bin/node */ scriptPath, /* /repo/common/scripts/install-run-rush.js */ rawPackageSpecifier, /* qrcode@^1.2.0 */ packageBinName, /* qrcode */ ...packageBinArgs /* [-f, myproject/lib] */] = process.argv;
     if (!nodePath) {
         throw new Error('Unexpected exception: could not detect node path');
     }
-    if (path.basename(scriptPath).toLowerCase() !== 'install-describe.js') {
-        // If install-describe.js wasn't directly invoked, don't execute the rest of this function. Return control
+    if (path.basename(scriptPath).toLowerCase() !== 'install-run.js') {
+        // If install-run.js wasn't directly invoked, don't execute the rest of this function. Return control
         // to the script that (presumably) imported this file
         return;
     }
     if (process.argv.length < 4) {
-        console.log('Usage: install-describe.js <package>@<version> <command> [args...]');
-        console.log('Example: install-describe.js qrcode@1.2.2 qrcode https://rushjs.io');
+        console.log('Usage: install-run.js <package>@<version> <command> [args...]');
+        console.log('Example: install-run.js qrcode@1.2.2 qrcode https://rushjs.io');
         process.exit(1);
     }
     runWithErrorAndStatusCode(() => {
@@ -396,4 +396,4 @@ function run() {
     });
 }
 run();
-//# sourceMappingURL=install-describe.js.map
+//# sourceMappingURL=install-run.js.map
