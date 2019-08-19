@@ -6,6 +6,9 @@
   "scripts": {
     "build": "tsc"
   },
+  "bin": {
+    "dothe": "./bin/index.js"
+  },
   "author": "Vsevolod Rodionov <vsevolod.rodionov@gmail.com>",
   "license": "ISC",
   "dependencies": {
