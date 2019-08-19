@@ -27,6 +27,9 @@ export class DependencyRegistry {
                 throw new CyclicReferenceError(`cyclic reference found: ${foundable} <- ${path.join(' <- ')}`)
             }
             nodes.add(foundable);
+            if (!this.taskRegistry.tasks.has(foundable)) {
+                throw new TypeError(`unknown task ${foundable}`)
+            }
             for (const dependency of this.froms.get(foundable)) {
                 if (!this.taskRegistry.tasks.has(dependency)) {
                     throw new TypeError(`unknown dependency ${dependency} of task ${foundable}`)
