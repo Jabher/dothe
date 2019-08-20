@@ -1,6 +1,14 @@
 # Change Log - dothe
 
-This log was last generated on Tue, 20 Aug 2019 13:13:14 GMT and should not be manually modified.
+This log was last generated on Tue, 20 Aug 2019 13:22:30 GMT and should not be manually modified.
+
+## 1.0.16
+Tue, 20 Aug 2019 13:22:30 GMT
+
+### Updates
+
+- remove async generator to support node 8
+- removes console mock
 
 ## 1.0.15
 Tue, 20 Aug 2019 13:13:14 GMT
