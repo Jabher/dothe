@@ -6,7 +6,6 @@ class ConfigParseError extends Error {}
 
 export async function exec(script: string, paths: string[], ...args: string[]) {
     const nodeArgs = [
-        '-r', resolve(__dirname, 'mock-console-output.js'),
         ...R.unnest(paths.map(path => ['-r', path])),
         resolve(__dirname, script),
         ...args
