@@ -13,7 +13,7 @@ export class TaskRegistry {
     }
 
     tasks = new Map<string, Task>();
-    dependencies = new DependencyRegistry<string>()
+    dependencies = new DependencyRegistry(this);
 
     registerTask(name: string): Task {
         if (this.tasks.has(name)) {

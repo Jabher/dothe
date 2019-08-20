@@ -1,6 +1,16 @@
 # Change Log - dothe
 
-This log was last generated on Mon, 19 Aug 2019 16:24:52 GMT and should not be manually modified.
+This log was last generated on Mon, 19 Aug 2019 16:31:55 GMT and should not be manually modified.
+
+## 1.0.13
+Mon, 19 Aug 2019 16:31:55 GMT
+
+*Version update only*
+
+## 1.0.12
+Mon, 19 Aug 2019 16:28:44 GMT
+
+*Version update only*
 
 ## 1.0.11
 Mon, 19 Aug 2019 16:24:52 GMT
