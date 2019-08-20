@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "comment": "remove async generator to support node 8",
+      "packageName": "dothe",
+      "type": "none"
+    }
+  ],
+  "packageName": "dothe",
+  "email": "vsevolod.rodionov@gmail.com"
+}
