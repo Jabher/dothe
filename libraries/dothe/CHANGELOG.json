@@ -2,6 +2,12 @@
   "name": "dothe",
   "entries": [
     {
+      "version": "1.0.14",
+      "tag": "dothe_v1.0.14",
+      "date": "Tue, 20 Aug 2019 12:59:46 GMT",
+      "comments": {}
+    },
+    {
       "version": "1.0.13",
       "tag": "dothe_v1.0.13",
       "date": "Mon, 19 Aug 2019 16:31:55 GMT",
