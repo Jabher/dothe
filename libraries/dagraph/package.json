@@ -1,6 +1,7 @@
 {
   "name": "dagraph",
   "version": "1.0.0",
+  "main": "index.js",
   "scripts": {
     "prepublish": "build"
   }
