@@ -6,16 +6,25 @@ class ConfigParseError extends Error {}
 
 export async function exec(script: string, paths: string[], ...args: string[]) {
     const nodeArgs = [
-        ...R.unnest(paths.map(path => ['-r', path])),
-        resolve(__dirname, script),
+        ...R.unnest(R.uniq(paths).map(path => ['-r', path])),
+        '-r', resolve(__dirname, "scripts", "validate-global-state.js"),
+        resolve(__dirname, "scripts", script),
         ...args
     ];
 
     const {exitCode, exitCodeName} = await execa("node", nodeArgs, {
-        stdio: "inherit"
+        stdio: "inherit",
+        reject: false
     });
 
-    if (exitCode) {
-        throw new ConfigParseError('configuration exited with code' + exitCodeName)
+    switch (exitCode) {
+
+        case 0:
+            return;
+        case 126:
+            process.exit(1);
+            return;
+        default:
+            throw new ConfigParseError(`configuration exited with code ${exitCode} (${exitCodeName})`)
     }
 }

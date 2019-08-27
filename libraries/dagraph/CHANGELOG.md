@@ -1,6 +1,21 @@
 # Change Log - dagraph
 
-This log was last generated on Tue, 27 Aug 2019 11:56:37 GMT and should not be manually modified.
+This log was last generated on Tue, 27 Aug 2019 19:32:57 GMT and should not be manually modified.
+
+## 1.2.0
+Tue, 27 Aug 2019 19:32:57 GMT
+
+### Minor changes
+
+- total rework
+
+## 1.0.2
+Tue, 27 Aug 2019 16:37:04 GMT
+
+### Patches
+
+- test
+- dagraph 1.0
 
 ## 1.1.0
 Tue, 27 Aug 2019 11:56:37 GMT

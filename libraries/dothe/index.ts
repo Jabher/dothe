@@ -1,13 +1,8 @@
-import {registry} from "./lib/TaskRegistry";
-import {stringifyTemplate} from "./lib/stringifyTemplate";
-import {Task} from "./lib/Task";
+import {task} from "./task";
 
-
-function task(strings: TemplateStringsArray, ...substitutions: string[]): Task {
-    return registry.registerTask(stringifyTemplate(strings, ...substitutions));
-}
-
+// @ts-ignore
 task.task = task;
+// @ts-ignore
 task.default = task;
 export default task;
 module.exports = task;

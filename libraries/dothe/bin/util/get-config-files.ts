@@ -8,7 +8,7 @@ const files = R.pipe(
     R.unnest,
     R.map(filename => [filename, join(filename, 'index')]),
     R.unnest
-)(["tasks.js"])
+)(["tasks.js"]);
 
 export async function getConfigFiles(root: string, configs?: string | string[]): Promise<string[]> {
     const configFiles = [];

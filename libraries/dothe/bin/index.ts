@@ -17,7 +17,7 @@ const {argv} = yargs
         requiresArg: false,
         choices: ["dot", "json", true]
     })
-    .help()
+    .help();
 
 getConfigFiles(process.cwd(), argv.config)
     .then(async configFiles => {
@@ -26,4 +26,4 @@ getConfigFiles(process.cwd(), argv.config)
         } else {
             await run(configFiles, argv._);
         }
-    })
+    });

@@ -29,6 +29,11 @@
       "projectFolder": "libraries/get-roots"
     },
     {
+      "packageName": "collections-plus",
+      "shouldPublish": true,
+      "projectFolder": "libraries/collections-plus"
+    },
+    {
       "packageName": "dothe",
       "shouldPublish": true,
       "projectFolder": "libraries/dothe"

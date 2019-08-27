@@ -2,6 +2,33 @@
   "name": "dagraph",
   "entries": [
     {
+      "version": "1.2.0",
+      "tag": "dagraph_v1.2.0",
+      "date": "Tue, 27 Aug 2019 19:32:57 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "total rework"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.0.2",
+      "tag": "dagraph_v1.0.2",
+      "date": "Tue, 27 Aug 2019 16:37:04 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "test"
+          },
+          {
+            "comment": "dagraph 1.0"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.1.0",
       "tag": "dagraph_v1.1.0",
       "date": "Tue, 27 Aug 2019 11:56:37 GMT",

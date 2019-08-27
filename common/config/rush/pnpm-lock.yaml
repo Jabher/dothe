@@ -1,5 +1,6 @@
 dependencies:
   '@babel/helper-plugin-utils': 7.0.0
+  '@rush-temp/collections-plus': 'file:projects/collections-plus.tgz'
   '@rush-temp/dagraph': 'file:projects/dagraph.tgz'
   '@rush-temp/dothe': 'file:projects/dothe.tgz'
   '@rush-temp/get-roots': 'file:projects/get-roots.tgz'
@@ -7,7 +8,7 @@ dependencies:
   '@types/invariant': 2.2.30
   '@types/listr': 0.14.2
   '@types/node': 12.7.2
-  '@types/ramda': 0.26.21_typescript@3.5.3
+  '@types/ramda': 0.26.21
   '@types/toposort': 2.0.3
   '@types/yargs': 13.0.2
   execa: 2.0.4
@@ -15,7 +16,6 @@ dependencies:
   listr: 0.14.3_listr@0.14.3
   ramda: 0.26.1
   rxjs: 6.5.2
-  typescript: 3.5.3
   yargs: 13.3.0
 lockfileVersion: 5.1
 packages:
@@ -52,12 +52,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-dyYO+f6ihZEtNPDcWNR1fkoTDf3zAK3lAABDze3mz6POyIercH0lEUawUFXlG8xaQZmm1yEBON/4TsYv/laDYg==
-  /@types/ramda/0.26.21_typescript@3.5.3:
+  /@types/ramda/0.26.21:
     dependencies:
-      ts-toolbelt: 3.8.52_typescript@3.5.3
+      ts-toolbelt: 3.8.52
     dev: false
-    peerDependencies:
-      typescript: '*'
     resolution:
       integrity: sha512-zMYtIZMceA6BvH+or6LmewLBgojbXg5+FGCwjO8K+Z+d/ZWxILmhhASXkehW0PqJL+V0QbyDeeAHix0dvEKXfQ==
   /@types/toposort/2.0.3:
@@ -712,9 +710,7 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-e900nM8RRtGhlV36KGEU9k65K3mPb1WV70OdjfxlG2EAuM1noi/E/BaW/uMhL7bPEssK8QV57vN3esixjUvcXQ==
-  /ts-toolbelt/3.8.52_typescript@3.5.3:
-    dependencies:
-      typescript: 3.5.3
+  /ts-toolbelt/3.8.52:
     dev: false
     peerDependencies:
       typescript: ^3.5.0
@@ -797,11 +793,22 @@ packages:
     dev: false
     resolution:
       integrity: sha512-2eehun/8ALW8TLoIl7MVaRUrg+yCnenu8B4kBlRxj3GJGDKU1Og7sMXPNm1BYyM1DOJmTZ4YeN/Nwxv+8XJsUA==
+  'file:projects/collections-plus.tgz':
+    dependencies:
+      typescript: 3.5.3
+    dev: false
+    name: '@rush-temp/collections-plus'
+    resolution:
+      integrity: sha512-KZdNB6vaCArejlxHSTMzVkXPU4v+7IyI/T7eVGpnVKsbdvg6GcE09lqcFIBTix/pGdQI+U4oNtXbZ5157v5J/Q==
+      tarball: 'file:projects/collections-plus.tgz'
+    version: 0.0.0
   'file:projects/dagraph.tgz':
+    dependencies:
+      typescript: 3.5.3
     dev: false
     name: '@rush-temp/dagraph'
     resolution:
-      integrity: sha512-dBcsvs0zEC9toOy+kHhg2BjHKJ47J3MOVtm1jPcUBC0ARgkHkzoVIuQNXtcVnhwgIYC50bWwszf3bGXabs022A==
+      integrity: sha512-YFKqglEzXwzMV47Nv288U/7iyPSMIPc+9xjlBlz+q7r5JMVGW5xYg4p5xgftabBr9ihtG6eD/1s32AbJW1dEhA==
       tarball: 'file:projects/dagraph.tgz'
     version: 0.0.0
   'file:projects/dothe.tgz':
@@ -811,7 +818,7 @@ packages:
       '@types/invariant': 2.2.30
       '@types/listr': 0.14.2
       '@types/node': 12.7.2
-      '@types/ramda': 0.26.21_typescript@3.5.3
+      '@types/ramda': 0.26.21
       '@types/toposort': 2.0.3
       '@types/yargs': 13.0.2
       execa: 2.0.4
@@ -824,7 +831,7 @@ packages:
     dev: false
     name: '@rush-temp/dothe'
     resolution:
-      integrity: sha512-9CRqsij9aKTcxAUh8EPKHj/CHhvz4OfmJUXEZsqn3Q6aGx4quF/VJec16Y7ovntuaWt61W4Ydp4H3BWVuFnhqg==
+      integrity: sha512-12HxDLR1HZSF7Lk5zY6pHxJVsofcswczlSDRhh1JOgmPYPoLqNX3Bh740dkMcU2/pAHUHAZi1UxyqFbw++nyTg==
       tarball: 'file:projects/dothe.tgz'
     version: 0.0.0
   'file:projects/get-roots.tgz':
@@ -839,8 +846,10 @@ packages:
       integrity: sha512-Tjc5UfoLs1w2HpuK1BlnmAXH+2S/RBqsgGzkFFJY8Ty8HeenT2PERp0AyCDCtK3mrNx1VvpHlwQhw8fVYL/1pw==
       tarball: 'file:projects/get-roots.tgz'
     version: 0.0.0
+registry: ''
 specifiers:
   '@babel/helper-plugin-utils': ~7.0.0
+  '@rush-temp/collections-plus': 'file:./projects/collections-plus.tgz'
   '@rush-temp/dagraph': 'file:./projects/dagraph.tgz'
   '@rush-temp/dothe': 'file:./projects/dothe.tgz'
   '@rush-temp/get-roots': 'file:./projects/get-roots.tgz'
@@ -856,5 +865,4 @@ specifiers:
   listr: ~0.14.3
   ramda: ~0.26.1
   rxjs: ~6.5.2
-  typescript: ~3.5.3
   yargs: ~13.3.0

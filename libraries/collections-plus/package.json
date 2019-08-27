@@ -1,6 +1,6 @@
 {
-  "name": "dagraph",
-  "version": "1.2.0",
+  "name": "collections-plus",
+  "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "prepublishOnly": "npm run build",

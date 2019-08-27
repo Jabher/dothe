@@ -12,6 +12,8 @@
   "author": "Vsevolod Rodionov <vsevolod.rodionov@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "collections-plus": "^1.0.0",
+    "dagraph": "^1.2.0",
     "execa": "~2.0.4",
     "fs-extra": "~8.1.0",
     "get-roots": "^1.0.0",
