@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prepublishOnly": "npm run build",
     "build": "tsc"
   },
   "bin": {
