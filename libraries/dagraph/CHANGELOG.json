@@ -1,0 +1,40 @@
+{
+  "name": "dagraph",
+  "entries": [
+    {
+      "version": "1.1.0",
+      "tag": "dagraph_v1.1.0",
+      "date": "Tue, 27 Aug 2019 11:56:37 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "gsom"
+          },
+          {
+            "comment": "something changed"
+          }
+        ],
+        "minor": [
+          {
+            "comment": "something changed"
+          }
+        ]
+      }
+    },
+    {
+      "version": "1.0.1",
+      "tag": "dagraph_v1.0.1",
+      "date": "Mon, 26 Aug 2019 08:56:23 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "gsom"
+          },
+          {
+            "comment": "something changed"
+          }
+        ]
+      }
+    }
+  ]
+}
