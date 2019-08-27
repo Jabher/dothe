@@ -1,0 +1,11 @@
+{
+  "changes": [
+    {
+      "packageName": "dagraph",
+      "comment": "something changed",
+      "type": "patch"
+    }
+  ],
+  "packageName": "dagraph",
+  "email": "vsevolod.rodionov@gmail.com"
+}
