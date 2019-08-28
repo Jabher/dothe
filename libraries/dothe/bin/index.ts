@@ -1,4 +1,5 @@
-#!/usr/bin/node
+#!/usr/bin/env node
+
 import * as yargs from 'yargs'
 import {describe, run} from "../runner";
 import {getConfigFiles} from "./util/get-config-files";
@@ -9,13 +10,15 @@ const {argv} = yargs
     .usage("$0 <task>")
     .option("config", {
         describe: "configuration file",
-        requiresArg: false,
+        requiresArg: true,
         type: "string"
     })
+    .option("noDependencies", {
+        describe: "run without dependencies",
+        alias: ["no-deps", "no-dependencies"]
+    })
     .option("describe", {
-        describe: "produces tasks schema",
-        requiresArg: false,
-        choices: ["dot", "json", true]
+        describe: "produces tasks schema"
     })
     .help();
 

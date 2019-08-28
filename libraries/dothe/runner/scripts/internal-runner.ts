@@ -1,97 +1,145 @@
 import * as Listr from 'listr'
 import {MapWithDefault} from "collections-plus";
-import {Subject, scheduled, asapScheduler} from 'rxjs'
-import {map, scan, mergeAll} from 'rxjs/operators'
-import {argv} from 'yargs'
-import {Action} from "../../lib/taskRunner";
 import {registeredTasks, taskDescriptions, taskNodeRegistry} from "../../lib/global-state";
+import {tasks} from "../argv-tasks";
+import * as execa from "execa";
+import {resolve} from 'path';
+import * as R from "ramda";
+import * as fs from "fs-extra";
 
-const createDependenciesTask = (dependencies: Set<string>, resolutions: MapWithDefault<string, Subject<string>>): Listr.ListrTask<any> => {
-    const waitForSting = (deps: Set<string> | string[]) => [...deps].length > 0
-        ? `wait for ${[...deps].join(', ')}`
-        : `resolved: ${[...dependencies].join(', ')}`;
+export const getStderrLogLocation = (taskName: string) => resolve(process.cwd(), `.dothe-logs`, `${taskName}.stderr.log`);
+export const getStdoutLogLocation = (taskName: string) => resolve(process.cwd(), `.dothe-logs`, `${taskName}.stdout.log`);
+const write = (filename: string, data: string) => {
+    fs.ensureFileSync(filename);
+    fs.writeFileSync(filename, data);
+};
 
-    return {
-        title: waitForSting(dependencies),
-        task: () =>
-            scheduled([...dependencies].map(name => resolutions.get(name)), asapScheduler)
-                .pipe(
-                    mergeAll(),
-                    scan((acc, name) => {
-                        acc.delete(name);
-                        return acc;
-                    }, new Set(dependencies)),
-                    map(waitForSting)
-                )
+let failedTask: void | string;
+
+const runSingleTask = async (taskName: string, onStateChage: (state: string) => void) => {
+    const filePaths: string[] = JSON.parse(process.env.DOTHE_FILE_PATHS as string);
+    const getStepName = (index: number) => task.fns.length > 1 ? `step ${index + 1}` : `running`;
+    const task = registeredTasks.get(taskName)!;
+    const stdouts = [];
+    const stderrs = [];
+    try {
+        for (const index of task.fns.map((_, i) => i)) {
+            const fn = task.fns[index];
+            onStateChage(fn.name ? `${getStepName(index)}: ${fn.name}` : getStepName(index));
+            const {stdout, stderr, exitCode} = await execa("node", [
+                ...R.unnest(filePaths.map(path => ["-r", path])),
+                resolve(__dirname, "run-single.js")
+            ], {
+                reject: false,
+                env: {
+                    ...process.env,
+                    DOTHE_TASK_NAME: taskName,
+                    DOTHE_STEP: index.toString(),
+                }
+            });
+            stdouts.push(stdout);
+            stderrs.push(stderr);
+
+            if (exitCode) {
+                failedTask = taskName;
+                throw new Error(exitCode.toString());
+            }
+        }
+    } finally {
+        write(getStderrLogLocation(taskName), stderrs.join("\n---\n"));
+        write(getStdoutLogLocation(taskName), stdouts.join("\n---\n"));
     }
 };
 
-/*todo wrap to child process and log to file*/
-const wrapFn = (fn: Action, resolution: Subject<any>, isLast: boolean): () => Promise<any> => {
-    if (isLast) {
-        return async () => {
-            await fn();
-            resolution.next();
-            resolution.complete();
-        }
-    } else {
-        return async () => {
-            await fn()
-        }
-    }
-};
-const makeTask = (title: string, ...task: ReadonlyArray<Listr.ListrTask<any>>) => ({
-    title,
-    task: () => new Listr(task)
-});
 
-const createTask = (taskName: string, dependencies: Set<string>, resolutions: MapWithDefault<string, Subject<string>>): Listr.ListrTask<any> => {
+const createTask = (resolutions: MapWithDefault<string, Deferred>) => (taskName: string): Listr.ListrTask<any> => {
     const description = taskDescriptions.get(taskName);
     const title = description ? `${taskName} (${description})` : taskName;
-    const task = registeredTasks.get(taskName)!;
-    if (task.fns) {
-        const dependenciesTasks = dependencies.size > 0 ? [createDependenciesTask(dependencies, resolutions)] : [];
-        const getStepName = (index: number) => task.fns.length > 1 ? `step ${index + 1}` : `task`;
-        const executionTasks = task.fns.map((fn, index, array) => ({
-            title: fn.name ? `${getStepName(index)}: ${fn.name}` : getStepName(index),
-            task: wrapFn(fn, resolutions.get(task.name), index === array.length - 1)
-        }));
-        return makeTask(title, ...dependenciesTasks, ...executionTasks)
-    } else {
-        return makeTask(`Composite: ${title}`, createDependenciesTask(dependencies, resolutions))
-    }
+    const dependencies = [...taskNodeRegistry.get(taskName).ancestors].map(({value}) => value);
+    const deferred = resolutions.get(taskName);
+    return {
+        title,
+        task: async (_, task) => {
+            const unresolvedDependencies = new Set(dependencies);
+            const failedDependencies = new Set<string>();
+            const toStr = (deps: Set<string>) => [...deps].join(', ');
+            const updateTask = () => {
+                if (failedDependencies.size === dependencies.length) {
+                    task.output = `all of dependencies failed: ${toStr(failedDependencies)}`
+                } else if (failedDependencies.size > 0) {
+                    task.output = `some of dependencies failed: ${toStr(failedDependencies)}`
+                } else if (unresolvedDependencies.size > 0) {
+                    task.output = `waiting for ${[...unresolvedDependencies].join(', ')}`
+                } else {
+                    task.output = `all dependencies resolved`;
+                }
+            };
+            updateTask();
+            await Promise.all(
+                dependencies.map(async name => {
+                    try {
+                        await resolutions.get(name);
+                    } catch (e) {
+                        failedDependencies.add(name);
+                    }
+                    unresolvedDependencies.delete(name);
+                    updateTask();
+                })
+            ).then(() => null, () => null);
+            if (failedDependencies.size > 0) {
+                updateTask();
+                throw new Error();
+            }
+
+            const runTask = runSingleTask(taskName, (output) => {
+                task.output = output;
+            });
+            // noinspection ES6MissingAwait
+            runTask.then(deferred.resolve, () => {
+                setTimeout(deferred.reject, 10);
+            });
+            await runTask.catch(async () => Promise.reject(await fs.readFile(getStdoutLogLocation(taskName))));
+        }
+    };
 };
 
-type Description = { tasks: Set<string>, dependencies: MapWithDefault<string, Set<string>> };
-
-const describe = (tasks: string[], description: Description = {
-    tasks: new Set(),
-    dependencies: new MapWithDefault(() => new Set())
-}): Description => {
-    for (const task of tasks) {
-        if (!description.tasks.has(task)) {
-            description.tasks.add(task);
-            description = describe([...taskNodeRegistry.get(task).ancestors].map(node => node.value), description);
+const collect = (tasks: string[]): string[] => {
+    const metTasks = new Set<string>(tasks);
+    for (const task of metTasks) {
+        for (const ancestor of taskNodeRegistry.get(task).ancestors) {
+            metTasks.add(ancestor.value);
         }
     }
-    return description;
+    return [...metTasks];
 };
 
-async function run(_tasks: string[]) {
-    const tasks = _tasks.length > 0 ? _tasks : ['default'];
-    const unknownTasks = tasks.filter(task => !registeredTasks.has(task));
-    if (unknownTasks.length > 0) {
-        console.error(`following tasks are not found: ${unknownTasks.join(', ')}`)
-    }
+type Deferred = Promise<void> & { resolve: () => void, reject: () => void };
 
-    const {tasks: allTasks, dependencies} = describe(tasks);
-    const resolutions = new MapWithDefault((name: string) => new Subject().pipe(map(() => name)) as Subject<string>);
+const createDeferred = (): Deferred => {
+    let resolve: () => void, reject: () => void;
+    const promise = new Promise<void>((_resolve, _reject) => {
+        resolve = _resolve;
+        reject = _reject;
+    });
+    // @ts-ignore
+    return Object.assign(promise, {resolve, reject}) as Deferred;
+};
 
-    const listr = new Listr([...allTasks].map(task => createTask(task, dependencies.get(task), resolutions)), {concurrent: true});
-    await listr.run();
-}
+const run = async (tasks: string[]) => {
+    await new Listr(
+        [...collect(tasks)]
+            .map(createTask(new MapWithDefault<string, Deferred>(createDeferred))),
+        {
+            concurrent: true
+        }).run();
+};
 
-run(argv._).catch(error => {
-    console.log(error);
-    process.exit(1);
+run(Object.keys(tasks)).catch(async error => {
+    if (typeof failedTask !== "undefined")
+        console.log(fs.readFileSync(getStderrLogLocation(failedTask), "utf8"));
+    else
+        console.log(error);
+    process.stderr.write(error.message ? error.message + '\n' : '', () => {
+        process.exit(1);
+    });
 });

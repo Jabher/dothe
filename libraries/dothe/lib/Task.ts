@@ -10,8 +10,6 @@ import {DuplicateTaskError} from "./errors/DuplicateTaskError";
 
 export class Task {
     public fns: Action[] = [];
-    public description?: string;
-
 
     constructor(public name: string) {
         if (registeredTasks.has(name)) {
@@ -25,11 +23,9 @@ export class Task {
     }
 
     public defineDependencies(dependencies: string[]): void {
-        console.log('add ancestors', this.name, ...dependencies);
         for (const task of dependencies) {
             encounteredTasks.get(task).push(`dependency of ${this.name}`);
             try {
-                console.log('add ancestor', this.name, task);
                 taskNodeRegistry.get(this.name).addAncestor(taskNodeRegistry.get(task));
             } catch (error) {
                 if (error instanceof CycleError) {

@@ -1,9 +1,9 @@
 {
     "compilerOptions": {
         "resolveJsonModule": true,
-        "target": "es2015",
+        "target": "es2016",
         "lib": [
-            "es2019"
+            "es2016"
         ],
         "rootDir": ".",
         "module": "commonjs",
@@ -25,5 +25,8 @@
         "noImplicitReturns": true,
 
         "types": ["node"]
-    }
+    },
+    "exclude": [
+        "test"
+    ]
 }
