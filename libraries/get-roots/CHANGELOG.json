@@ -1,0 +1,17 @@
+{
+  "name": "get-roots",
+  "entries": [
+    {
+      "version": "1.1.0",
+      "tag": "get-roots_v1.1.0",
+      "date": "Wed, 28 Aug 2019 17:07:11 GMT",
+      "comments": {
+        "minor": [
+          {
+            "comment": "reworked everything"
+          }
+        ]
+      }
+    }
+  ]
+}

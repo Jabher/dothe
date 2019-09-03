@@ -1,18 +1,19 @@
 import {dirname, resolve} from "path";
-import {pathExists} from "fs-extra";
+import {pathExistsSync} from "fs-extra";
 
-export async function getRootByFilename(location: string, filenames: string[]): Promise<string> {
+export function getRootByFilename(location: string, filenames: string[]): string {
     let newLocation = location;
     let currentLocation: string;
     do {
         currentLocation = newLocation;
-        const exists = await Promise.all(filenames.map(filename => pathExists(resolve(currentLocation, filename))));
-        if (await exists.some(doExist => doExist === true)) {
-            return currentLocation;
+        for (const filename of filenames) {
+            if (pathExistsSync(resolve(currentLocation, filename))) {
+                return currentLocation;
+            }
         }
         newLocation = dirname(currentLocation)
     } while (currentLocation !== newLocation);
-    throw new Error('was not able to find root in ' + location)
+    throw new Error(`was not able to find root in ${location}`)
 }
 
 export const getPackageRoot = (location: string) => getRootByFilename(location, ['package.json']);
