@@ -1,6 +1,13 @@
 # Change Log - get-roots
 
-This log was last generated on Tue, 03 Sep 2019 12:04:26 GMT and should not be manually modified.
+This log was last generated on Tue, 03 Sep 2019 12:08:52 GMT and should not be manually modified.
+
+## 1.2.1
+Tue, 03 Sep 2019 12:08:52 GMT
+
+### Patches
+
+- added readme
 
 ## 1.2.0
 Tue, 03 Sep 2019 12:04:26 GMT

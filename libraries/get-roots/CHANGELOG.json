@@ -2,6 +2,18 @@
   "name": "get-roots",
   "entries": [
     {
+      "version": "1.2.1",
+      "tag": "get-roots_v1.2.1",
+      "date": "Tue, 03 Sep 2019 12:08:52 GMT",
+      "comments": {
+        "patch": [
+          {
+            "comment": "added readme"
+          }
+        ]
+      }
+    },
+    {
       "version": "1.2.0",
       "tag": "get-roots_v1.2.0",
       "date": "Tue, 03 Sep 2019 12:04:26 GMT",
