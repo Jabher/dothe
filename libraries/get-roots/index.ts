@@ -16,6 +16,6 @@ export function getRootByFilename(location: string, filenames: string[]): string
     throw new Error(`was not able to find root in ${location}`)
 }
 
-export const getPackageRoot = (location: string) => getRootByFilename(location, ['package.json']);
 export const getGitRoot = (location: string) => getRootByFilename(location, ['.git']);
+export const getPackageRoot = (location: string) => getRootByFilename(location, ['package.json']);
 export const getMonorepoRoot = (location: string) => getRootByFilename(location, ['rush.json', 'lerna.json']);
