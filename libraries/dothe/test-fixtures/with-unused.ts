@@ -1,4 +1,4 @@
-import task from "dothe"
+import task from ".."
 
 task`default`
     .does`make the bundle`

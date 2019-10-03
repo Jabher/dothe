@@ -1,6 +1,6 @@
 {
   "name": "get-roots",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -8,12 +8,13 @@
     "build": "tsc"
   },
   "author": "Vsevolod Rodionov <vsevolod.rodionov@gmail.com>",
-  "license": "ISC",
-  "dependencies": {
-    "fs-extra": "~8.1.0"
+  "homepage": "https://github.com/Jabher/dothe/tree/master/libraries/get-roots",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Jabher/dothe"
   },
+  "license": "ISC",
   "devDependencies": {
-    "@types/fs-extra": "~8.0.0",
     "@types/node": "~12.7.2",
     "typescript": "~3.5.3"
   }

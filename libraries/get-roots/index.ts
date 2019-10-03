@@ -1,5 +1,14 @@
 import {dirname, resolve} from "path";
-import {pathExistsSync} from "fs-extra";
+import * as fs from "fs";
+
+const pathExistsSync = (path: string) => {
+    try {
+        fs.accessSync(path, fs.constants.F_OK);
+        return true;
+    } catch (err) {
+    }
+    return false;
+};
 
 export function getRootByFilename(location: string, filenames: string[]): string {
     let newLocation = location;
