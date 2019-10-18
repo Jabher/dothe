@@ -4,5 +4,5 @@ import {task} from "./task";
 task.task = task;
 // @ts-ignore
 task.default = task;
-export default task;
 module.exports = task;
+export default task;
